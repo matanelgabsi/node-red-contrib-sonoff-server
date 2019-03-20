@@ -7,8 +7,12 @@ module.exports = function (RED) {
         const sonoffServer = node.server.sonoffServer;
 
         node.on('input', function (msg) {
-            msg.topic = config.device_id;
-            msg.payload = sonoffServer.turnOnDevice(config.device_id);
+            msg.topic = config.outlet == -1 ? config.device_id : config.device_id + "_" + config.outlet;
+            if (config.outlet == -1) {
+                msg.payload = sonoffServer.turnOnDevice(config.device_id);
+            } else {
+                msg.payload = sonoffServer.turnOnDeviceOutlet(config.device_id, config.outlet);
+            }
             node.send(msg);
         });
     }

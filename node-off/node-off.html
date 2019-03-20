@@ -5,6 +5,7 @@
         defaults: {
             name: { value: "" },
             device_id: { value: "", required: true },
+            outlet: { value: -1, required: false },
             server: { value: "", type: "sonoff-server" },
         },
         inputs: 1,
@@ -29,10 +30,24 @@
         <label for="node-input-device_id"><i class="icon-tag"></i> Device ID</label>
         <input type="text" id="node-input-device_id" placeholder="Device ID">
     </div>
+    <div class="form-row">
+        <label for="node-input-outlet"><i class="icon-tag"></i> Outlet index</label>
+        <input type="text" id="node-input-outlet" placeholder="Outlet index for multi-switch sonoff">
+    </div>
 </script>
 
 <script type="text/x-red" data-help-name="sonoff-off">
     <p>Turn off device connected to server.</p>
+
+    <h3>Inputs</h3>
+    
+    <dl class="message-properties">
+        <dt>device_id<span class="property-type">string</span></dt>
+        <dd>Device ID</dd>
+
+        <dt>outlet<span class="property-type">number</span></dt>
+        <dd>If this device is a multi-switch device. should be the button index, starting from 0. use -1 for single-switch device (default)</dd>
+    </dl>
     
     <h3>Outputs</h3>
     
@@ -41,5 +56,6 @@
         <dd>Device ID</dd>
 
         <dt>payload<span class="property-type">string</span></dt>
-        <dd>"off" if succes, "disconnected" if device is not connected</dd>
+        <dd>"off" if success, "disconnected" if device is not connected</dd>
+    </dl>
 </script>
